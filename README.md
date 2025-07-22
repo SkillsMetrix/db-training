@@ -1,2 +1,1 @@
-# db-training
-db-training
+https://teams.microsoft.com/l/meetup-join/19%253ameeting_MTNlZTU4NmMtM2Q3Ny00Y2JmLTk2ZTItNDg2OTExMjcwY2M1%2540thread.v2/0?context=%257b%2522Tid%2522%253a%252250361608-aa23-494d-a233-2fd14d6a03f4%2522%252c%2522Oid%2522%253a%2522e5aa875a-88cc-43eb-9ccb-54b93ff9f480%2522%257d
