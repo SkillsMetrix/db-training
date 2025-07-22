@@ -1,0 +1,54 @@
+package day1basics;
+
+public class StaticDemo {
+	// class var
+	private static int a=20;
+	private int b=30;
+	
+	
+	
+	public static int getA() {
+		return a;
+	}
+
+	public static void setA(int a) {
+		StaticDemo.a = a;
+	}
+
+	public int getB() {
+		return b;
+	}
+
+	public void setB(int b) {
+		this.b = b;
+	}
+}
+--------------
+package day1basics;
+
+public class StaticDemoMain {
+
+	public static void main(String[] args) {
+		 StaticDemo ins= new StaticDemo();
+		 ins.setA(30);
+		 ins.setB(20);
+		
+		 System.out.println(ins.getA());
+		 System.out.println(ins.getB());
+		 
+		 
+		 
+		 StaticDemo cls= new StaticDemo();
+		
+		 cls.setA(70);
+		 cls.setB(80);
+		 System.out.println(cls.getA());
+		 System.out.println(cls.getB());
+		 
+		 System.out.println(ins.getA());
+		 System.out.println(ins.getB());
+	}
+	
+	
+
+}
