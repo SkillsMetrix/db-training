@@ -1,113 +1,29 @@
-import java.util.ArrayList;
+package dbdemo;
 
-class Student {
-    int id;
-    String name;
-    double marks;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
-    // Constructor
-    public Student(int id, String name, double marks) {
-        this.id = id;
-        this.name = name;
-        this.marks = marks;
-    }
+public class ConnectionTest {
 
-    // toString method to display student details
-    @Override
-    public String toString() {
-        return "ID: " + id + ", Name: " + name + ", Marks: " + marks;
-    }
-}
+	public static void main(String[] args)throws Exception {
+		 String URL= "jdbc:h2:~/test";
+		 String username="sa";
+		 String password="";
+		 //load the driver
+		 Class.forName("org.h2.Driver");
+		 //create a connection
+		 Connection conn= DriverManager.getConnection(URL,username,password);
+		 System.out.println("Connected...!" + conn);
+		 String insertData= "insert into userapp(uid,uname,email,city)values(?,?,?,?) ";
+		 PreparedStatement pst= conn.prepareStatement(insertData);
+		 pst.setInt(1, 101);
+		 pst.setString(2, "admin");
+		 pst.setString(3, "admin@mail.com");
+		 pst.setString(4, "delhi");
+		 pst.executeUpdate();
+		 System.out.println("user Added");
+		 
+	}
 
-public class StudentManager {
-
-    static ArrayList<Student> students = new ArrayList<>();
-
-    // Static block to add dummy student data
-    static {
-        students.add(new Student(101, "Alice", 82.5));
-        students.add(new Student(102, "Bob", 67.0));
-        students.add(new Student(103, "Charlie", 90.2));
-        students.add(new Student(104, "Diana", 55.4));
-        students.add(new Student(105, "Ethan", 78.8));
-    }
-
-    // Method to display all students
-    public static void displayAllStudents() {
-        System.out.println("All Students:");
-        for (Student s : students) {
-            System.out.println(s);
-        }
-        System.out.println();
-    }
-
-    // Method to search student by ID
-    public static void searchStudentById(int id) {
-        boolean found = false;
-        for (Student s : students) {
-            if (s.id == id) {
-                System.out.println("Student Found: " + s);
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
-            System.out.println("Student with ID " + id + " not found.");
-        }
-        System.out.println();
-    }
-
-    // Method to delete student by ID
-    public static void deleteStudentById(int id) {
-        boolean removed = students.removeIf(s -> s.id == id);
-        if (removed) {
-            System.out.println("Student with ID " + id + " removed successfully.");
-        } else {
-            System.out.println("Student with ID " + id + " not found.");
-        }
-        System.out.println();
-    }
-
-    // Method to update student marks by ID
-    public static void updateStudentMarks(int id, double newMarks) {
-        boolean updated = false;
-        for (Student s : students) {
-            if (s.id == id) {
-                s.marks = newMarks;
-                System.out.println("Marks updated for student: " + s);
-                updated = true;
-                break;
-            }
-        }
-        if (!updated) {
-            System.out.println("Student with ID " + id + " not found.");
-        }
-        System.out.println();
-    }
-
-    // Method to display students with marks > 75
-    public static void displayTopStudents() {
-        System.out.println("Students with marks > 75:");
-        for (Student s : students) {
-            if (s.marks > 75) {
-                System.out.println(s);
-            }
-        }
-        System.out.println();
-    }
-
-    // Main method to simulate the test flow
-    public static void main(String[] args) {
-        displayAllStudents();
-
-        searchStudentById(103);
-
-        updateStudentMarks(104, 72.5);
-
-        deleteStudentById(102);
-
-        displayTopStudents();
-
-        displayAllStudents(); // Final state of list
-    }
 }
