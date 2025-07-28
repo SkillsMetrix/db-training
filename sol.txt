@@ -1,29 +1,40 @@
-package dbdemo;
+package com.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
-public class ConnectionTest {
+public class EmployeeUtils {
 
-	public static void main(String[] args)throws Exception {
-		 String URL= "jdbc:h2:~/test";
-		 String username="sa";
-		 String password="";
-		 //load the driver
-		 Class.forName("org.h2.Driver");
-		 //create a connection
-		 Connection conn= DriverManager.getConnection(URL,username,password);
-		 System.out.println("Connected...!" + conn);
-		 String insertData= "insert into userapp(uid,uname,email,city)values(?,?,?,?) ";
-		 PreparedStatement pst= conn.prepareStatement(insertData);
-		 pst.setInt(1, 101);
-		 pst.setString(2, "admin");
-		 pst.setString(3, "admin@mail.com");
-		 pst.setString(4, "delhi");
-		 pst.executeUpdate();
-		 System.out.println("user Added");
-		 
+	public static List<Employee> filterEmployee(List<Employee> employees,Predicate<Employee> condition){
+		return employees.stream().filter(condition).collect(Collectors.toList());
+	}
+}
+
+
+-------------
+
+
+package com.model;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.List;
+
+public class EmployeeTest {
+	
+	private static List<Employee> empList;
+	
+	static void steup() {
+		empList=Arrays.asList(
+				
+				new Employee(101, "dem", LocalDate.of(1990, 6, 10), 23456.00,LocalTime.of(9,0)),
+				new Employee(102, "sam", LocalDate.of(1985, 3, 20), 99456.00,LocalTime.of(8,45)),
+				new Employee(103, "david", LocalDate.of(2000, 1, 15), 23006.00,LocalTime.of(9,15)),
+				new Employee(104, "bob", LocalDate.of(1995, 8, 30), 99459.00,LocalTime.of(10,0))
+				);
+				
 	}
 
 }
