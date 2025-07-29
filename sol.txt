@@ -45,8 +45,22 @@ public class UserService {
 		}
 		return false;
 	}
+	public boolean updateUser(String uname,User user) {
+		for (User us : list) {
+			if (us.getUserName().equals(uname)) {
+				 us.setUserName(user.getUserName());
+				 us.setPassword(user.getPassword());
+				 us.setEmail(user.getEmail());
+				 us.setCity(user.getCity());
+				 return true;
+			 
+			}
+		}
+		return false;
+		 
+	}
 }
--------
+---------
 
 
 package com.controller;
@@ -59,6 +73,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -108,5 +123,15 @@ public class AppController {
 		}
 		return "User not found...!";
 	}
+	
+	
+	@PutMapping("/updateuser/{uname}")
+	public String updateUser(@PathVariable String uname,@RequestBody User user) {
+		if (service.updateUser(uname,user)) {
+			return uname + " " + "found and updated";
+		}
+		return "User not found...!";
+	}
+	
 	
 }
