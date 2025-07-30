@@ -1,78 +1,39 @@
-package com.service;
+package com.example.shop_cart;
 
-import java.util.List;
+ import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.entity.Product;
-import com.repo.ProductRepo;
-
-@Service
-public class ProductService {
-	@Autowired
-	private ProductRepo repo;
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
 	
-	
-	public Product addProduct(Product product) {
-		return repo.save(product);
+	@Bean
+	public UserDetailsService detailsService() {
+		return new InMemoryUserDetailsManager(
+				
+				User.withUsername("admin").password("admin123").roles("ADMIN").build(),
+				User.withUsername("user").password("user123").roles("USER").build());
 	}
-
-	public List<Product> loadProduct(){
-		return (List<Product>)repo.findAll();
-	}
-	
-	public String purchaseProduct(int id,int qty) {
-		return repo.findById(id).map(product -> {
-			if(product.getQuantityAvailable() >=qty) {
-				product.setQuantityAvailable(product.getQuantityAvailable()- qty);
-				repo.save(product);
-				return "Purchase Successfull...!";
-			}else {
-				return "not enough quantity available";
-			}
-		}).orElse("Product Not Found");
-	}
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.csrf(csrf-> csrf.disable())
+		.authorizeHttpRequests(auth -> auth.requestMatchers("/h2-console").permitAll().anyRequest().authenticated())
+		.headers(headers -> headers.frameOptions().disable())
+		.httpBasic(Customizer.withDefaults());
+		return http.build();
+		
 }
--------------
-
-
-package com.controller;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.entity.Product;
-import com.service.ProductService;
-
-@RestController
-@RequestMapping("/shopcart")
-public class ProductController {
-	@Autowired
-	private ProductService service;
-	@PostMapping("/addproduct")
-	public ResponseEntity<Product> addProduct(@RequestBody Product product){
-		return ResponseEntity.ok(service.addProduct(product));
-		
+	@Bean
+	public static PasswordEncoder encoder() {
+		return NoOpPasswordEncoder.getInstance();
 	}
-	@GetMapping("/loadproducts")
-	public ResponseEntity<List<Product>> loadProduct(){
-		return ResponseEntity.ok(service.loadProduct());
-		
-	}
-	@PostMapping("/purchaseproduct/{id}/{quantity}")
-	public ResponseEntity<String> purchaseProduct(@PathVariable int id,@PathVariable int quantity){
-		return ResponseEntity.ok(service.purchaseProduct(id, quantity));
-		
-	}
-
 }
