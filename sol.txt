@@ -9,6 +9,5 @@
 
 <p><b>Sample Video (Big Buck Bunny - 480p):</b></p>
 <video width="320" height="240" controls>
-    <source src="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/480/Big_Buck_Bunny_480_10s_1MB.mp4" type="video/mp4">
-    Your browser does not support the video element.
+  <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
 </video>
