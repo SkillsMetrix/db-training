@@ -1,86 +1,32 @@
 <html>
-
-<head>
-    <title>Student Profile Portal</title>
-     <link rel="stylesheet" href="style.css">
-   
-</head>
-<script src="demo.js"></script>
-<body>
-    <h1>Welcome to Student Profile Portal</h1> 
-    <hr>
-    <h2>Student Introduction  <header id="stu"></header></h2>
-    <p>this is <b>Student Application</b> to showcase <i>Expertise</i> on <u>CSS and JavaScript</u>
-        <br>
-        <abbr title="This is Markup">HTML</abbr>
-        is the backbone of web pages
-    </p>
-    <h3> Company Details</h3>
-    <ul>
-        <li><a href="https://skillsmetrix.com" target="_blank"> visit skillsmetrix.com</a></li>
-        <li><a href="mailto:letsconnect@skillsmetrix.com">Email US</a></li>
-        <li><a href="tel:91122343434">Call For Support</a></li>
-    </ul>
-
-    <h3>Student Details</h3>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Roll No</th>
-                <th>Name</th>
-                <th>Course</th>
-                <th>Year</th>
-            </tr>
-
-        </thead>
-        <tbody>
-            <tr>
-                <td>101</td>
-                <td>Amarjeet</td>
-                <td>Mtech</td>
-                <td>2004</td>
-            </tr>
-             <tr>
-                <td>102</td>
-                <td>Saurabh</td>
-                <td>Btech</td>
-                <td>2005</td>
-            </tr>
-        </tbody>
-    </table>
-    <h3>Student Registration</h3>
+  <head>
+    <title>User Registration Page</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <script src="app.js"></script>
+  <body>
+    <p>User Registration Form</p>
     <form>
-        UserName: <input type="text" id="username"> <br>
-        Email: <input type="email" id="email"> <br>
-         Gender: <input type="radio" value="Male">Male  
-         <input type="radio" value="Female">Female <br>
-         Course
-         <select>
-            <option value="btech">B-Tech</option>
-             <option value="BSc">B-Sc</option>
-              <option value="mtech">M-Tech</option>
-         </select><br>
-         JoinDate : <input type="date"><br>
-         <button type="button" onclick="showData()">Submit</button>
-         <div id="show"></div>
-            </form>
-        <h3>🎵 Audio & 🎬 Video</h3>
+      <form onsubmit="return addUser(event)">
+        UserName: <input type="text" id="username"  required/> <br />
+        Email: <input type="email" id="email" required /> <br />
+        Gender: <select name="" id="gender">
+            <option value="">--select--</option>
+            <option>Male</option>
+            <option>Female</option>
+        </select>
+        
+     <br />
+        Course
+        <select id="course">
+          <option value="btech">B-Tech</option>
+          <option value="BSc">B-Sc</option>
+          <option value="mtech">M-Tech</option></select
+        ><br />
 
-<p><b>Sample Audio (Classical):</b></p>
-<audio controls>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio>
-<br><br>
-
-<p><b>Sample Video (Big Buck Bunny - 480p):</b></p>
-<video width="320" height="240" controls>
-  <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-</video>
- 
-    <br>
-    <img src="https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
-      
-</body>
-
+        <button onclick="addUser()">Submit</button>
+      </form>
+    </form>
+  
+  </body>
 </html>
