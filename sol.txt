@@ -1,89 +1,12 @@
-package com.example.shop_cart;
+<h3>🎵 Audio & 🎬 Video</h3>
+<p>Sample audio:</p>
+<audio controls>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_58aef5bc20.mp3?filename=relaxing-music-11772.mp3" type="audio/mpeg">
+    Your browser does not support the audio tag.
+</audio><br><br>
 
- import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.SecurityFilterChain;
-
-@Configuration
-@EnableWebSecurity
-public class SecurityConfig {
-	
-	@Bean
-	public UserDetailsService detailsService() {
-		return new InMemoryUserDetailsManager(
-				
-				User.withUsername("admin").password("admin123").roles("ADMIN").build(),
-				User.withUsername("user").password("user123").roles("USER").build());
-	}
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.csrf(csrf-> csrf.disable())
-		.authorizeHttpRequests(auth -> auth.requestMatchers("/h2-console").permitAll().anyRequest().authenticated())
-		.headers(headers -> headers.frameOptions().disable())
-		.httpBasic(Customizer.withDefaults());
-		return http.build();
-
-		
-}
-	@Bean
-	public static PasswordEncoder encoder() {
-		return NoOpPasswordEncoder.getInstance();
-	}
-}
-
-
----------------
-
-
-
-package com.controller;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.entity.Product;
-import com.service.ProductService;
-
-@RestController
-@RequestMapping("/shopcart")
-public class ProductController {
-	@Autowired
-	private ProductService service;
-	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/addproduct")
-	public ResponseEntity<Product> addProduct(@RequestBody Product product){
-		return ResponseEntity.ok(service.addProduct(product));
-		
-	}
-	@PreAuthorize("hasAnyRole('USER','ADMIN')")
-	@GetMapping("/loadproducts")
-	public ResponseEntity<List<Product>> loadProduct(){
-		return ResponseEntity.ok(service.loadProduct());
-		
-	}
-	@PostMapping("/purchaseproduct/{id}/{quantity}")
-	public ResponseEntity<String> purchaseProduct(@PathVariable int id,@PathVariable int quantity){
-		return ResponseEntity.ok(service.purchaseProduct(id, quantity));
-		
-	}
-
-}
-
+<p>Sample video:</p>
+<video width="320" height="240" controls>
+    <source src="https://sample-videos.com/video123/mp4/480/big_buck_bunny_480p_1mb.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
