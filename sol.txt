@@ -3,12 +3,13 @@
 <head>
     <title>Student Profile Portal</title>
      <link rel="stylesheet" href="style.css">
+   
 </head>
-
+<script src="demo.js"></script>
 <body>
-    <h1>Welcome to Student Profile Portal</h1>
+    <h1>Welcome to Student Profile Portal</h1> 
     <hr>
-    <h2>Student Introduction</h2>
+    <h2>Student Introduction  <header id="stu"></header></h2>
     <p>this is <b>Student Application</b> to showcase <i>Expertise</i> on <u>CSS and JavaScript</u>
         <br>
         <abbr title="This is Markup">HTML</abbr>
@@ -48,9 +49,9 @@
         </tbody>
     </table>
     <h3>Student Registration</h3>
-    <form action="">
-        UserName: <input type="text"> <br>
-        Email: <input type="email"> <br>
+    <form>
+        UserName: <input type="text" id="username"> <br>
+        Email: <input type="email" id="email"> <br>
          Gender: <input type="radio" value="Male">Male  
          <input type="radio" value="Female">Female <br>
          Course
@@ -60,6 +61,9 @@
               <option value="mtech">M-Tech</option>
          </select><br>
          JoinDate : <input type="date"><br>
+         <button type="button" onclick="showData()">Submit</button>
+         <div id="show"></div>
+            </form>
         <h3>🎵 Audio & 🎬 Video</h3>
 
 <p><b>Sample Audio (Classical):</b></p>
@@ -73,30 +77,10 @@
 <video width="320" height="240" controls>
   <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
 </video>
-    </form>
+ 
     <br>
     <img src="https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
+      
 </body>
 
 </html>
-
-
-------------------
-
-
-
-body{
-    margin: 20px;
-    background-color: lightcyan;
-}
-h1,h2,h3{
-    color: gray;
-}
-table{
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-table,th,td{
-    border: 1px solid lightcoral
-}
