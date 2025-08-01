@@ -1,25 +1,30 @@
-import { useState } from "react";
+import { useState } from "react"
 
-function Header(props) {
-  // initialize the data
-  const [count, setCount] = useState(10);
-  const inc = () => {
-    setCount(count + 1);
-  };
-   const dec = () => {
-    setCount(count - 1);
-  };
-  return (
-    <div>
-      <p>{props.hdata}</p>
+function Footer(){
 
-      <h3>{count}</h3>
+    const [users,setUsers]= useState([])
+    const [uname,setUname]= useState('')
 
-      <hr />
-      <button onClick={inc}>INC</button>
-      <button onClick={dec}>DEC</button>
-    </div>
-  );
+    const addUser=(e)=>{
+        e.preventDefault();
+        setUsers([...users,{uname}])
+
+}
+    return(
+
+<div>
+    {users.map((user)=> (
+        <div>
+            <p>{user.uname}</p>
+        </div>
+    ))}
+    <form onSubmit={addUser}>
+        UserName: <input type="text" value={uname} onChange={(e)=> setUname(e.target.value)}/> 
+        <br/>
+        <button>Add User</button>
+    </form>
+</div>
+    )
 }
 
-export default Header;
+export default Footer
