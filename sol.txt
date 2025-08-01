@@ -1,95 +1,25 @@
-<html>
-  <head>
-    <title>User Registration Page</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <script src="app.js"></script>
-  <body>
-    <p>User Registration Form</p>
-  
-      <form id ="fid" onsubmit="return addUser(event)">
-        UserName: <input type="text" id="username"   /> <br />
-        Email: <input type="email" id="email"   /> <br />
-        Gender: <select name="" id="gender">
-            <option value="">--select--</option>
-            <option>Male</option>
-            <option>Female</option>
-        </select>
-        
-     <br />
-        Course
-        <select id="course">
-          <option value="btech">B-Tech</option>
-          <option value="BSc">B-Sc</option>
-          <option value="mtech">M-Tech</option></select
-        ><br />
+import { useState } from "react";
 
-        <button>Submit</button>
-      </form>
-    </form>
-  
-  </body>
-</html>
+function Header(props) {
+  // initialize the data
+  const [count, setCount] = useState(10);
+  const inc = () => {
+    setCount(count + 1);
+  };
+   const dec = () => {
+    setCount(count - 1);
+  };
+  return (
+    <div>
+      <p>{props.hdata}</p>
 
+      <h3>{count}</h3>
 
-
--------------
-
-
-
-
- 
-function addUser(event ){
-    event.preventDefault();
-  
-    
-    const name= document.getElementById('username')
-     const email= document.getElementById('email')
-      const gender= document.getElementById('gender')
-       const course= document.getElementById('course')
-       //create an object
-
-       const userdata={
-        uname:name.value.trim(),
-         uemail:email.value.trim(),
-            ugender:gender.value.trim(),
-              ucourse:course.value.trim()
-
-        }
-      
-       console.log(userdata);
-  
-       
-}     
-
-
-
----------
-
-
-body{
-    margin: 20px;
-    background-color: lightcyan;
+      <hr />
+      <button onClick={inc}>INC</button>
+      <button onClick={dec}>DEC</button>
+    </div>
+  );
 }
-h1,h2,h3{
-    color: gray;
-}
-table{
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-table,th,td{
-    border: 1px solid lightcoral
-}
-th,td{
-    padding: 8px 12px;
-    text-align: left;
-}
-input,select{
-    width: 100%;
-    padding: 8px;
-    margin:10px;
-    border: 1px solid;
-    border-radius: 4x;
-}
+
+export default Header;
