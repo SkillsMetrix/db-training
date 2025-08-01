@@ -4,22 +4,29 @@ function Footer(){
 
     const [users,setUsers]= useState([])
     const [uname,setUname]= useState('')
+     const [email,setEmail]= useState('')
 
     const addUser=(e)=>{
         e.preventDefault();
-        setUsers([...users,{uname}])
+        setUsers([...users,{uname,email}])
+        setUname('')
 
+}
+const deleteUser=(usr)=>{
+    setUsers(users.filter((user) => user.uname !==usr))
 }
     return(
 
 <div>
     {users.map((user)=> (
         <div>
-            <p>{user.uname}</p>
+            <p>{user.uname} - {user.email}  <button onClick={()=>deleteUser(user.uname)}>Delete</button></p>
+
         </div>
     ))}
     <form onSubmit={addUser}>
         UserName: <input type="text" value={uname} onChange={(e)=> setUname(e.target.value)}/> 
+        Email: <input type="text" value={email} onChange={(e)=> setEmail(e.target.value)}/> 
         <br/>
         <button>Add User</button>
     </form>
