@@ -2,55 +2,29 @@
 
 
 
-function DataShow(props){
-    return(
+import React, { useEffect, useState } from 'react';
+import axios from 'axios'
+const URL='https://jsonplaceholder.typicode.com/users'
+function RestApp(props) {
+    const [users,setUsers]=useState([])
+    useEffect(()=>{
+        axios.get(URL)
+        .then((response) => response.data)
+        .then((data) => {
+            setUsers(data)
+        })
+    })
+    return (
         <div>
-            {props.users.map((user)=> (
-        <div>
-            <p>{user.uname} - {user.email}  <button onClick={()=>props.du(user.uname)}>Delete</button></p>
-
+            <p>Users Data</p>
+            {users.map((data)=> 
+            <div>
+                {data.name}
+            </div>
+            
+            )}
         </div>
-    ))}
-        </div>
-    )
-}
-export default DataShow
-
----------------
-
-
-
-import { useState } from "react"
-import DataShow from "./DataShow"
-
-function Footer(){
-
-    const [users,setUsers]= useState([])
-    const [uname,setUname]= useState('')
-     const [email,setEmail]= useState('')
-
-    const addUser=(e)=>{
-        e.preventDefault();
-        setUsers([...users,{uname,email}])
-        setUname('')
-
-}
-const deleteUser=(usr)=>{
-    setUsers(users.filter((user) => user.uname !==usr))
-}
-    return(
-
-<div>
-    
-    <DataShow users= {users} du={deleteUser}/>
-<form onSubmit={addUser}>
-        UserName: <input type="text" value={uname} onChange={(e)=> setUname(e.target.value)}/> 
-        Email: <input type="text" value={email} onChange={(e)=> setEmail(e.target.value)}/> 
-        <br/>
-        <button>Add User</button>
-    </form>
-</div>
-    )
+    );
 }
 
-export default Footer
+export default RestApp;
