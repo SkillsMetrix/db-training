@@ -1,4 +1,27 @@
+
+
+
+
+function DataShow(props){
+    return(
+        <div>
+            {props.users.map((user)=> (
+        <div>
+            <p>{user.uname} - {user.email}  <button onClick={()=>props.du(user.uname)}>Delete</button></p>
+
+        </div>
+    ))}
+        </div>
+    )
+}
+export default DataShow
+
+---------------
+
+
+
 import { useState } from "react"
+import DataShow from "./DataShow"
 
 function Footer(){
 
@@ -18,13 +41,9 @@ const deleteUser=(usr)=>{
     return(
 
 <div>
-    {users.map((user)=> (
-        <div>
-            <p>{user.uname} - {user.email}  <button onClick={()=>deleteUser(user.uname)}>Delete</button></p>
-
-        </div>
-    ))}
-    <form onSubmit={addUser}>
+    
+    <DataShow users= {users} du={deleteUser}/>
+<form onSubmit={addUser}>
         UserName: <input type="text" value={uname} onChange={(e)=> setUname(e.target.value)}/> 
         Email: <input type="text" value={email} onChange={(e)=> setEmail(e.target.value)}/> 
         <br/>
