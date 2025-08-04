@@ -27,15 +27,22 @@ function Register(props) {
 
 <div>
     
-    
+    <div class="card">
+  <div class="card-header">
+    User Registration Form
+  </div>
+  <div class="card-body">
 <form onSubmit={addUser}>
         UserName: <input type="text" value={userName} onChange={(e)=> setUserName(e.target.value)}/> 
         Email: <input type="text" value={email} onChange={(e)=> setEmail(e.target.value)}/>
          password: <input type="password" value={password} onChange={(e)=> setPassword(e.target.value)}/> 
          City: <input type="text" value={city} onChange={(e)=> setCity(e.target.value)}/> 
         <br/>
-        <button>Add User</button>
+        <button className='btn btn-primary'>Add User</button>
     </form>
+    </div>
+  </div>
+
 </div>
     )
 }
