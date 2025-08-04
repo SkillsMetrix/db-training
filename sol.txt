@@ -1,49 +1,66 @@
-
-import React, { useState } from 'react';
-import axios from 'axios';
-function Register(props) {
-    
-    const [users,setUsers]= useState([])
-    const [userName,setUserName]= useState('')
-     const [email,setEmail]= useState('')
-      const [password,setPassword]= useState('')
-     const [city,setCity]= useState('')
-
-    const addUser=async(e)=>{
-        e.preventDefault();
-        setUsers([...users,{userName,password,email,city}])
-       // console.log(...users);
-        const data={userName,password,email,city}
-         const response= await axios.post('http://localhost:8080/db/register',data)
-         console.log(response.data);
-         setUserName('')
-         setCity('')
-         setPassword('')
-         setEmail('')
-
-}
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+const URL = "http://localhost:8080/db/loadusers";
  
-    return(
+function UserDetails(props) {
+  const [users, setUsers] = useState([]);
 
-<div>
-    
-    <div class="card">
-  <div class="card-header">
-    User Registration Form
-  </div>
-  <div class="card-body">
-<form onSubmit={addUser}>
-        UserName: <input type="text" value={userName} onChange={(e)=> setUserName(e.target.value)}/> 
-        Email: <input type="text" value={email} onChange={(e)=> setEmail(e.target.value)}/>
-         password: <input type="password" value={password} onChange={(e)=> setPassword(e.target.value)}/> 
-         City: <input type="text" value={city} onChange={(e)=> setCity(e.target.value)}/> 
-        <br/>
-        <button className='btn btn-primary'>Add User</button>
-    </form>
+  useEffect(() => {
+    axios
+      .get(URL)
+      .then((response) => response.data)
+      .then((data) => {
+        setUsers(data);
+      });
+  });
+
+
+
+  const deleteUser=async(name)=>{
+      await axios.delete(`http://localhost:8080/db/deleteuser/${name}`)
+        
+        
+  }
+  return (
+    <div className="container">
+      <h4>Users Data</h4>
+
+<table className="table">
+  <thead>
+    <tr>
+       
+      <th scope="col">UserName</th>
+      <th scope="col">Email</th>
+      <th scope="col">City</th>
+         <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {users.map((user)=> (
+
+     <tr >
+          <td>{user.userName}</td>
+           <td>{user.email}</td>
+            <td>{user.city}</td>
+             <td><button onClick={()=>deleteUser(user.userName)} className="btn btn-danger">Delete</button></td>
+    </tr>
+     ))}
+    </tbody>
+      
+
+</table>
+
+
+
+      {users.map((data) => (
+        <div>
+
+
+            
+        </div>
+      ))}
     </div>
-  </div>
-
-</div>
-    )
+  );
 }
-export default Register
+
+export default UserDetails;
